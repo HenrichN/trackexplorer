@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<product name="Track Explorer" id="org.trackexplorer.product" application="org.eclipse.e4.ui.workbench.swt.E4Application" useFeatures="true" includeLaunchers="true">
+
+   <configIni use="default">
+   </configIni>
+
+   <launcherArgs>
+      <programArgs>-clearPersistedState
+      </programArgs>
+      <vmArgsMac>-XstartOnFirstThread -Dorg.eclipse.swt.internal.carbon.smallFonts
+      </vmArgsMac>
+   </launcherArgs>
+
+   <launcher name="Track Explorer">
+      <macosx icon="/org.trackexplorer.product/icons/icon-mac.icns"/>
+      <solaris/>
+      <win useIco="false">
+         <bmp
+            winSmallHigh="/org.trackexplorer.product/icons/win_16x16_32.bmp"
+            winSmallLow="/org.trackexplorer.product/icons/win_16x16_8.bmp"
+            winMediumHigh="/org.trackexplorer.product/icons/win_32x32_32.bmp"
+            winMediumLow="/org.trackexplorer.product/icons/win_32x32_8.bmp"
+            winLargeHigh="/org.trackexplorer.product/icons/win_48x48_32.bmp"
+            winLargeLow="/org.trackexplorer.product/icons/win_48x48_8.bmp"
+            winExtraLargeHigh="/org.trackexplorer.product/icons/win_256x256_32.bmp"/>
+      </win>
+   </launcher>
+
+   <vm>
+   </vm>
+
+   <plugins>
+   </plugins>
+
+   <features>
+      <feature id="org.trackexplorer.feature"/>
+      <feature id="org.eclipse.e4.rcp"/>
+      <feature id="org.eclipse.emf.ecore"/>
+      <feature id="org.eclipse.emf.common"/>
+   </features>
+
+   <configurations>
+      <plugin id="org.eclipse.core.runtime" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.common" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.ds" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.event" autoStart="true" startLevel="2" />
+      <plugin id="org.eclipse.equinox.p2.reconciler.dropins" autoStart="true" startLevel="0" />
+      <plugin id="org.eclipse.equinox.simpleconfigurator" autoStart="true" startLevel="1" />
+   </configurations>
+
+</product>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ASCII"?>
+<application:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:advanced="http://www.eclipse.org/ui/2010/UIModel/application/ui/advanced" xmlns:application="http://www.eclipse.org/ui/2010/UIModel/application" xmlns:basic="http://www.eclipse.org/ui/2010/UIModel/application/ui/basic" xmlns:menu="http://www.eclipse.org/ui/2010/UIModel/application/ui/menu" xmi:id="_Zs0x4A5-EeWENP0gJnsdSg" elementId="org.trackexplorer.application">
+  <children xsi:type="basic:TrimmedWindow" xmi:id="_aYj2gA5-EeWENP0gJnsdSg" elementId="org.trackexplorer.trimmedwindow.main" x="100" y="100" width="600" height="400">
+    <tags>shellMaximized</tags>
+    <children xsi:type="advanced:PerspectiveStack" xmi:id="_2YVkYA7cEeWzx7t1c8tTbA" elementId="org.trackexplorer.perspectivestack.0">
+      <children xsi:type="advanced:Perspective" xmi:id="_3wtFgA7cEeWzx7t1c8tTbA" elementId="org.trackexplorer.perspective" label="Tracks">
+        <children xsi:type="basic:PartSashContainer" xmi:id="_-3C2EA7cEeWzx7t1c8tTbA" elementId="org.trackexplorer.partsashcontainer.main" horizontal="true">
+          <children xsi:type="basic:PartStack" xmi:id="_DYCVAA7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.partstack.0" containerData="25">
+            <children xsi:type="basic:Part" xmi:id="_QsMSsA7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.part.tracks" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.parts.overview.TrackOverviewPart" label="Tracks">
+              <menus xsi:type="menu:PopupMenu" xmi:id="__rOKMCTDEeWqbsJSnki2Ng" elementId="org.trackexplorer.trackoverview.popupmenu.tracklist">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_HXTFECTEEeWqbsJSnki2Ng" elementId="org.trackexplorer.trackoverview.addpermanenttrack" label="Add track permanently" command="__-sqYCTEEeWqbsJSnki2Ng"/>
+              </menus>
+              <menus xsi:type="menu:PopupMenu" xmi:id="_NVQlUCWVEeWGmYZs1IrFWA" elementId="org.trackexplorer.trackoverview.popupmenu.permanenttracks">
+                <children xsi:type="menu:HandledMenuItem" xmi:id="_Ocf6MCWVEeWGmYZs1IrFWA" elementId="org.trackexplorer.trackoverview.removepermanenttrack" label="Remove track" command="_B9ZxsCWUEeWGmYZs1IrFWA"/>
+              </menus>
+            </children>
+          </children>
+          <children xsi:type="basic:PartSashContainer" xmi:id="_KUUxsA7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.partsashcontainer.0" containerData="75">
+            <children xsi:type="basic:PartStack" xmi:id="_NTji8A7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.partstack.1" containerData="80">
+              <children xsi:type="basic:Part" xmi:id="_TxVesA7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.part.viewer" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.parts.TrackViewerPart" label="Viewer"/>
+            </children>
+            <children xsi:type="basic:PartStack" xmi:id="_N1a54A7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.partstack.2" containerData="20">
+              <children xsi:type="basic:Part" xmi:id="_WYl00A7dEeWzx7t1c8tTbA" elementId="org.trackexplorer.part.info" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.parts.TrackInfoPart" label="Info"/>
+            </children>
+          </children>
+        </children>
+      </children>
+    </children>
+    <mainMenu xmi:id="_Pvu7cB85EeW_VMMNu4YS7A" elementId="org.eclipse.ui.main.menu">
+      <children xsi:type="menu:Menu" xmi:id="_q3qyEB85EeW_VMMNu4YS7A" elementId="org.eclipse.ui.file.menu" label="Menu">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_IAC2cB86EeW_VMMNu4YS7A" elementId="org.trackexplorer.handledmenuitem.preferences" command="_G9_1gB84EeW_VMMNu4YS7A"/>
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_zQ68AB85EeW_VMMNu4YS7A" elementId="org.trackexplorer.handledmenuitem.exit" command="_s6dlsB84EeW_VMMNu4YS7A"/>
+      </children>
+      <children xsi:type="menu:Menu" xmi:id="_0kCQAFqdEeWIteSl8ZRw0Q" elementId="org.eclipse.ui.main.info" label="Info">
+        <children xsi:type="menu:HandledMenuItem" xmi:id="_4ou0gFqdEeWIteSl8ZRw0Q" elementId="org.trackexplorer.handledmenuitem.about" label="About TrackExplorer" command="_MO28AFqdEeWIteSl8ZRw0Q"/>
+      </children>
+    </mainMenu>
+  </children>
+  <handlers xmi:id="_GEgMQB85EeW_VMMNu4YS7A" elementId="org.trackexplorer.handler.preferences" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.handlers.PreferencePageHandler" command="_G9_1gB84EeW_VMMNu4YS7A"/>
+  <handlers xmi:id="_K6wJgB85EeW_VMMNu4YS7A" elementId="org.trackexplorer.handler.exit" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.handlers.ExitHandler" command="_s6dlsB84EeW_VMMNu4YS7A"/>
+  <handlers xmi:id="_xODrICTFEeWqbsJSnki2Ng" elementId="org.trackexplorer.handler.addtrackpermanently" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.handlers.AddTrackPermanentlyHandler" command="__-sqYCTEEeWqbsJSnki2Ng"/>
+  <handlers xmi:id="_IWI1YCWUEeWGmYZs1IrFWA" elementId="org.trackexplorer.handler.removepermanenttrack" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.handlers.RemovePermanentTrackHandler" command="_B9ZxsCWUEeWGmYZs1IrFWA"/>
+  <handlers xmi:id="_CR8toChuEeWjrK9I8clqxQ" elementId="org.trackexplorer.handler.showtrack" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.handlers.ShowTrackHandler" command="_9qwgEChtEeWjrK9I8clqxQ"/>
+  <handlers xmi:id="_f8gLUFqdEeWIteSl8ZRw0Q" elementId="org.trackexplorer.handler.about" contributionURI="bundleclass://org.trackexplorer/org.trackexplorer.handlers.AboutHandler" command="_MO28AFqdEeWIteSl8ZRw0Q"/>
+  <commands xmi:id="_G9_1gB84EeW_VMMNu4YS7A" elementId="org.eclipse.ui.window.preferences" commandName="Preferences"/>
+  <commands xmi:id="_s6dlsB84EeW_VMMNu4YS7A" elementId="org.eclipse.ui.file.exit" commandName="Exit"/>
+  <commands xmi:id="__-sqYCTEEeWqbsJSnki2Ng" elementId="org.trackexplorer.command.addtrackpermanently" commandName="Add track permanently"/>
+  <commands xmi:id="_B9ZxsCWUEeWGmYZs1IrFWA" elementId="org.trackexplorer.command.removepermanentrack" commandName="Remove permanent track"/>
+  <commands xmi:id="_9qwgEChtEeWjrK9I8clqxQ" elementId="org.trackexplorer.command.showtrack" commandName="Show track"/>
+  <commands xmi:id="_MO28AFqdEeWIteSl8ZRw0Q" elementId="org.eclipse.ui.help.aboutAction" commandName="About"/>
+  <addons xmi:id="_Zs1Y8A5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.core.commands.service" contributionURI="bundleclass://org.eclipse.e4.core.commands/org.eclipse.e4.core.commands.CommandServiceAddon"/>
+  <addons xmi:id="_Zs1Y8Q5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.ui.contexts.service" contributionURI="bundleclass://org.eclipse.e4.ui.services/org.eclipse.e4.ui.services.ContextServiceAddon"/>
+  <addons xmi:id="_Zs1Y8g5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.ui.bindings.service" contributionURI="bundleclass://org.eclipse.e4.ui.bindings/org.eclipse.e4.ui.bindings.BindingServiceAddon"/>
+  <addons xmi:id="_Zs1Y8w5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.ui.workbench.commands.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.CommandProcessingAddon"/>
+  <addons xmi:id="_Zs1Y9A5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.ui.workbench.contexts.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.ContextProcessingAddon"/>
+  <addons xmi:id="_Zs1Y9Q5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.ui.workbench.bindings.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.swt/org.eclipse.e4.ui.workbench.swt.util.BindingProcessingAddon"/>
+  <addons xmi:id="_Zs1Y9g5-EeWENP0gJnsdSg" elementId="org.eclipse.e4.ui.workbench.handler.model" contributionURI="bundleclass://org.eclipse.e4.ui.workbench/org.eclipse.e4.ui.internal.workbench.addons.HandlerProcessingAddon"/>
+</application:Application>

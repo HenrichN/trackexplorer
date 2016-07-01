@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+		html, body, #map-canvas {
+			height: 100%;
+			margin: 0px;
+			padding: 0px
+		}
+		#panel {
+			position: absolute;
+			top: 5px;
+			left: 50%;
+			margin-left: -180px;
+			z-index: 5;
+			background-color: #fff;
+			padding: 5px;
+			border: 1px solid #999;
+		}
+</style>
+    
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<script>
+var map;
+var gpxPath;
+var geoSearchRect;
+
+var permanentTracks = {};
+
+function initialize()
+{
+	var mapOptions = {
+	  center: new google.maps.LatLng(0, -180),
+		zoom:3,
+		mapTypeId:google.maps.MapTypeId.ROADMAP
+		};
+	
+	map=new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+
+	gpxPath = new google.maps.Polyline({
+		strokeColor:"#0000FF",
+		strokeOpacity:0.8,
+		strokeWeight:3
+		});
+
+	gpxPath.setMap(map);
+	
+	geoSearchRect = new google.maps.Rectangle({
+			    		editable: true,
+    					draggable: true});
+}
+
+function updatePath(color, waypoints) {
+	var track = waypoints.map( function(val) { return new google.maps.LatLng(val[0],val[1]) });
+  	gpxPath.setPath(track);
+  	gpxPath.setOptions({strokeColor: color});
+}
+
+function addPermanentTrack(trackId, color, waypoints) {
+	// Remove old track if available
+	if(trackId in permanentTracks) {
+		removePermanentTrack(trackId);
+	}	
+	
+	var track = waypoints.map( function(val) { return new google.maps.LatLng(val[0],val[1]) });
+		
+	// Add new track
+	permanentTracks[trackId] = new google.maps.Polyline({
+		path: track,
+		strokeColor: color,
+		strokeOpacity: 1.0,
+		strokeWeight: 3
+	});
+
+	// Show track
+	permanentTracks[trackId].setMap(map);	
+}
+
+function removePermanentTrack(trackId) {
+	// Check if track is available
+	if(trackId in permanentTracks) {
+		permanentTracks[trackId].setMap(null);
+	}
+	
+	// Remove key from hash map
+	delete permanentTracks[trackId];
+}
+
+function fitBounds(bounds) {
+	map.fitBounds(
+					new google.maps.LatLngBounds(new google.maps.LatLng(bounds[0][0], bounds[0][1]),
+																			 new google.maps.LatLng(bounds[1][0], bounds[1][1])));
+}
+
+function showGeoSearchRectangle() {	
+	bounds = map.getBounds();
+	center = new google.maps.LatLng(
+		(bounds.getSouthWest().lat() + bounds.getNorthEast().lat()) / 2.0,
+		(bounds.getSouthWest().lng() + bounds.getNorthEast().lng()) / 2.0);
+
+	lowerLeft = linearInterpolationLatLng(center, bounds.getSouthWest(), 0.5);
+	topRight = linearInterpolationLatLng(center, bounds.getNorthEast(), 0.5);
+
+	geoSearchRect.setBounds(new google.maps.LatLngBounds(lowerLeft, topRight));
+	
+ 	geoSearchRect.setMap(map);
+}
+
+function linearInterpolationLatLng(a, b, factor) {
+	return new google.maps.LatLng(
+		a.lat() + (factor * (b.lat() - a.lat())),
+		a.lng() + (factor * (b.lng() - a.lng())));
+}
+
+function hideGeoSearchRectangle() {
+	geoSearchRect.setMap(null);
+}
+
+function resetGeoSearchRectangle() {
+	hideGeoSearchRectangle();
+	showGeoSearchRectangle();
+}
+
+function getBounds() {
+	bounds = geoSearchRect.getBounds();
+	if(bounds != null) {
+		BoundsCallback( bounds.getSouthWest().lat(),
+						bounds.getSouthWest().lng(),	
+						bounds.getNorthEast().lat(),
+						bounds.getNorthEast().lng());
+	}
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+</head>
+
+<body>
+<div id="map-canvas"></div>
+</body>
+</html>

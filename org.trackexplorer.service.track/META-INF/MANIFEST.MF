@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Track
+Bundle-SymbolicName: org.trackexplorer.service.track
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Import-Package: org.trackexplorer.model
+Export-Package: org.trackexplorer.service.track
+Service-Component: OSGI-INF/component.xml
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .,
+ lib/log4j-1.2.17.jar
