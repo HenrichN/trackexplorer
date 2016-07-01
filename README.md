@@ -12,7 +12,8 @@ Display only the tracks which pass through a particular region.
 Select several tracks to be shown at once.
 ![PermanentTracks](assets/screenshots/Permanent Tracks.png)
 
-## Downloads
+## Downloads (Mac and Windows)
+https://github.com/HenrichN/trackexplorer/releases
 
 ## User Guide
 ### Add tracks
