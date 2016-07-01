@@ -29,27 +29,154 @@ var geoSearchRect;
 
 var permanentTracks = {};
 
+function EditablePath(map) {
+    this.map = map;
+    
+    this.segments = [];
+    this.vertices = [];
+
+    this.firstPoint = undefined;
+
+    this.highlightedSegment = undefined;
+
+    // Add a listener for the click event
+    map.addListener('click', this.addLatLng.bind(this));   
+}
+
+EditablePath.prototype.segmentNormalStyle = {
+	strokeColor: '#000000',
+	strokeOpacity: 1.0,
+	strokeWeight: 3
+};
+
+EditablePath.prototype.segmentHighlightedStyle = {
+	strokeColor: '#55AA55',
+	strokeOpacity: 1.0,
+	strokeWeight: 6
+};
+
+EditablePath.prototype.createSegment = function(start, end) {
+    var polyline = new google.maps.Polyline({
+	path: [start, end]	
+    });
+    polyline.setOptions(this.segmentNormalStyle);
+
+    var state = {
+	line : polyline,
+	that: this
+    };
+    
+    polyline.addListener('mouseover', this.mouseOver.bind(state));
+    
+    polyline.setMap(this.map);
+    
+    return polyline;
+}
+
+EditablePath.prototype.addSegment = function(latLng) {
+    var newSegment = undefined;
+    
+    if(this.firstPoint === undefined) {
+	this.firstPoint = latLng;
+	// No segment, return undefined
+    }
+    else {
+	var start = undefined;
+	
+	if(this.segments.length > 0) {
+	    var lastSegment = this.segments[this.segments.length - 1];
+	    start = lastSegment.getPath().getAt(1);	    
+	}
+	else {
+	    start = this.firstPoint;
+	}
+
+	 newSegment = this.createSegment(start,
+					 latLng);
+	this.segments.push(newSegment);
+    }
+
+    return newSegment;
+}
+
+EditablePath.prototype.updateLatestVertex = function(newSegment) {
+    if(this.vertices.length > 0) {
+	var latestPoint = this.vertices[this.vertices.length - 1];
+	latestPoint.rightSegment = newSegment;
+    }
+}
+
+EditablePath.prototype.addVertex = function(latLng) {
+    var leftSegment = this.segments[this.segments.length - 1];
+    var vertex = new Vertex(this.map, latLng, leftSegment, undefined);   
+    this.vertices.push(vertex);
+}
+
+EditablePath.prototype.addLatLng = function(event) {
+    var newSegment = this.addSegment(event.latLng);
+    this.updateLatestVertex(newSegment);
+    this.addVertex(event.latLng);
+}
+
+EditablePath.prototype.mouseOver = function(event) {
+    if(this.that.activeSegment !== undefined) {
+	EditablePath.prototype.unhighlightSegment(this.that.activeSegment);
+    }
+    EditablePath.prototype.highlightSegment(this.line);
+    this.that.activeSegment = this.line;
+}
+
+EditablePath.prototype.highlightSegment = function(segment) {
+    segment.setOptions(EditablePath.prototype.segmentHighlightedStyle);
+}
+
+EditablePath.prototype.unhighlightSegment = function(segment) {
+    segment.setOptions(EditablePath.prototype.segmentNormalStyle);
+}
+
+function Vertex(map, latLng, leftSegment, rightSegment) {
+    this.circle = new google.maps.Marker({
+	position: latLng,
+	draggable: true,
+	icon: {
+	    path: google.maps.SymbolPath.CIRCLE,
+	    fillOpacity: 0.5,
+	    fillColor: '#ff0000',
+	    strokeOpacity: 1.0,
+	    strokeColor: '#fff000',
+	    strokeWeight: 3.0, 
+	    scale: 5 //pixels
+	}
+    });
+    this.circle.addListener('dragend', this.drag.bind(this));
+    this.circle.setMap(map);
+    
+    this.leftSegment = leftSegment;
+    this.rightSegment = rightSegment;    
+}
+
+Vertex.prototype.drag = function(event) {    
+    if(this.leftSegment !== undefined) {
+	this.leftSegment.getPath().setAt(1,event.latLng);
+	console.log("Changed left");
+    }
+    if(this.rightSegment !== undefined) {
+	this.rightSegment.getPath().setAt(0,event.latLng);
+	console.log("Changed right");
+    }
+}
+
 function initialize()
 {
-	var mapOptions = {
-	  center: new google.maps.LatLng(0, -180),
-		zoom:3,
-		mapTypeId:google.maps.MapTypeId.ROADMAP
-		};
-	
-	map=new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+    var mapOptions = {
+	center: new google.maps.LatLng(0, -180),
+	zoom:3,
+	mapTypeId:google.maps.MapTypeId.ROADMAP
+    };
+    
+    var map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
 
-	gpxPath = new google.maps.Polyline({
-		strokeColor:"#0000FF",
-		strokeOpacity:0.8,
-		strokeWeight:3
-		});
-
-	gpxPath.setMap(map);
-	
-	geoSearchRect = new google.maps.Rectangle({
-			    		editable: true,
-    					draggable: true});
+    var gpxPath = new EditablePath(map);
 }
 
 function updatePath(color, waypoints) {
